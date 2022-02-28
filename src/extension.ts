@@ -16,12 +16,13 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	const { action } = await generateCode();
-	let disposable = vscode.commands.registerCommand('admin-generate-code.helloWorld', () => {
+	console.log(context, '====', context)
+	let disposable = vscode.commands.registerCommand('admin-generate-code.helloWorld', (data) => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
 		// vscode.window.showInformationMessage('Hello World from admin-generate-code!');
 		// vscode.commands.executeCommand('editor.action.addCommentLine')
-		
+		const fileDri = data.path;
 		const panel = vscode.window.createWebviewPanel(
 			'collect',
 			'Form Collect',
@@ -35,7 +36,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				switch (message.command) {
 					case 'save':
 						vscode.window.showInformationMessage(message.data.name);
-						action.runActions({name: message.data.name}).then((result:any) => {
+						action.runActions({fileDri, name: message.data.name}).then((result:any) => {
 							vscode.window.showWarningMessage(message.data.name);
 						}).catch((error: any) => {
 							console.log(error, '====???')
@@ -82,7 +83,7 @@ async function  generateCode() {
 		description: 'create a table',
 		actions: [{
 			type: 'add',
-			path: path.resolve(__dirname, '../src/{{name}}.jsx') ,
+			path: '{{fileDri}}/{{name}}.jsx' ,
 			templateFile: path.resolve(__dirname, '../src/plop-templates/controller.jsx') 
 		}],
 		prompts: []
