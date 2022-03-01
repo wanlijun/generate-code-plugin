@@ -1,6 +1,6 @@
-# admin-generate-code README
+# generate-code-plugin README
 
-This is the README for your extension "admin-generate-code". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "generate-code-plugin". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

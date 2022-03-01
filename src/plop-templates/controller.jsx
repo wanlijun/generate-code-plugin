@@ -1,4 +1,9 @@
-const Demo = () => {
-  return <div>hello</div>
+function render() {
+  return `
+    const Demo = () => {
+      return <div>hello</div>
+    }
+    export default Demo;
+  `
 }
-export default Demo;
+render();

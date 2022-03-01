@@ -6,21 +6,22 @@ const nodePlop = require('node-plop');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
+let jsonData:any = null
 export async function activate(context: vscode.ExtensionContext) {
 	
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "admin-generate-code" is now active!');
+	console.log('Congratulations, your extension "generate-code-plugin" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	const { action } = await generateCode();
 	console.log(context, '====', context)
-	let disposable = vscode.commands.registerCommand('admin-generate-code.helloWorld', (data) => {
+	let disposable = vscode.commands.registerCommand('generate-code-plugin.helloWorld', (data) => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		// vscode.window.showInformationMessage('Hello World from admin-generate-code!');
+		// vscode.window.showInformationMessage('Hello World from generate-code-plugin!');
 		// vscode.commands.executeCommand('editor.action.addCommentLine')
 		const fileDri = data.path;
 		const panel = vscode.window.createWebviewPanel(
@@ -36,6 +37,7 @@ export async function activate(context: vscode.ExtensionContext) {
 				switch (message.command) {
 					case 'save':
 						vscode.window.showInformationMessage(message.data.name);
+						jsonData = message.data;
 						action.runActions({fileDri, name: message.data.name}).then((result:any) => {
 							vscode.window.showWarningMessage(message.data.name);
 						}).catch((error: any) => {
@@ -84,9 +86,18 @@ async function  generateCode() {
 		actions: [{
 			type: 'add',
 			path: '{{fileDri}}/{{name}}.jsx' ,
-			templateFile: path.resolve(__dirname, '../src/plop-templates/controller.jsx') 
+			template: renderTemp()
 		}],
 		prompts: []
 	});
 	return { action };
+}
+function renderTemp(){
+	console.log('====>>>')
+	return `
+	const Demo = () => {
+		return <div>${jsonData.name}</div>
+	}
+	export default Demo;
+	`
 }

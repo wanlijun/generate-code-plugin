@@ -1,6 +1,6 @@
 {
-	"name": "admin-generate-code",
-	"displayName": "admin-generate-code",
+	"name": "generate-code-plugin",
+	"displayName": "generate-code-plugin",
 	"description": "",
 	"version": "0.0.1",
 	"engines": {
@@ -10,30 +10,30 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:admin-generate-code.helloWorld",
-		"onCommand:admin-generate-code.showDate"
+		"onCommand:generate-code-plugin.helloWorld",
+		"onCommand:generate-code-plugin.showDate"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"menus": {
 			"explorer/context": [
 				{
-					"command": "admin-generate-code.helloWorld",
+					"command": "generate-code-plugin.helloWorld",
 					"group": "adminCoder@1"
 				},
 				{
-					"command": "admin-generate-code.showDate",
+					"command": "generate-code-plugin.showDate",
 					"group": "adminCoder@1"
 				}
 			]
 		},
 		"commands": [
 			{
-				"command": "admin-generate-code.helloWorld",
+				"command": "generate-code-plugin.helloWorld",
 				"title": "Hello World"
 			},
 			{
-				"command": "admin-generate-code.showDate",
+				"command": "generate-code-plugin.showDate",
 				"title": "Show DATE"
 			}
 		],
